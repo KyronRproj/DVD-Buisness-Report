@@ -1,0 +1,18 @@
+Create table detailed_report as
+/* This creates the table and then populates it with data it extracted*/
+Select film.film_id, title, description, release_year, language_id, rental_duration, rental_rate, length, replacement_cost, rating, 
+film.last_update as film_last_update, special_features, fulltext, film_category.category_id, film_category.last_update as film_category_last_update,
+name as category, category.last_update as category_last_update,store_id, inventory.last_update as inventory_last_update, rental_id
+rental_date, return_date, staff_id, rental.last_update as rental_last_update
+from film
+inner join film_category
+on film.film_id = film_category.film_id
+inner join category
+on film_category.category_id = category.category_id
+inner join inventory
+on film.film_id = inventory.film_id
+inner join rental
+on inventory.inventory_id = rental.inventory_id
+order by title;
+select *
+from detailed_report
